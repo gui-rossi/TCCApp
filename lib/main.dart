@@ -60,66 +60,75 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber,
-      body: Center(
+      body: Container(
+        margin: EdgeInsets.only(left: 16, right: 16),
         child: Form(
           key: formKey,
-          child: ListView(
-            padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LogoContainer(),
-              Center(child: Text('Welcome to the APP')),
               buildEmail(),
-              const SizedBox(height: 16),
               buildPassword(),
-              const SizedBox(height: 16),
-              buildSubmit(),
+              buildSubmit()
             ],
           ),
-        ),
-      ),
+        )
+      )
     );
   }
 
-  Widget buildEmail() => TextFormField(
-    decoration: InputDecoration(
-        labelText: 'E-mail',
-        border: OutlineInputBorder()
-    ),
-    validator: (value) {
+  Widget buildEmail() => Container(
+    margin: EdgeInsets.only(top: 8, bottom: 8),
+    child: TextFormField(
+      decoration: InputDecoration(
+          labelText: 'E-mail',
+          border: OutlineInputBorder()
+      ),
+      validator: (value) {
         if (value!.length < 4) {
           return 'Less than 4 characters';
         } else {
           return null;
         }
-    },
-    onSaved: (value) => setState(() => email = value!),
+      },
+      onSaved: (value) => setState(() => email = value!),
+    )
   );
 
-  Widget buildPassword() => TextFormField(
-    decoration: InputDecoration(
-        labelText: 'Password',
-        border: OutlineInputBorder()
-    ),
-    validator: (value) {
-      if (value != null) {
-        if (value.length < 4) {
-          return 'Less than 4 characters';
-        } else {
-          return null;
+  Widget buildPassword() => Container(
+    margin: EdgeInsets.only(top: 8, bottom: 8),
+    child: TextFormField(
+      decoration: InputDecoration(
+          labelText: 'Password',
+          border: OutlineInputBorder()
+      ),
+      validator: (value) {
+        if (value != null) {
+          if (value.length < 4) {
+            return 'Less than 4 characters';
+          } else {
+            return null;
+          }
         }
-      }
-    },
-    onSaved: (value) => setState(() => password = value!),
-    obscureText: true,
+      },
+      onSaved: (value) => setState(() => password = value!),
+      obscureText: true,
+    ),
   );
 
   Widget buildSubmit() => Container(
-    color: Colors.indigo,
+    margin: EdgeInsets.only(top: 8),
+    width: 200,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.indigo,
+    ),
     child: TextButton(
       style: TextButton.styleFrom(
           primary: Colors.amber
       ),
-      child: Text('Login'),
+      child: Text('Login', style: TextStyle(fontSize: 19)),
       onPressed: () {
         final isValid = formKey.currentState!.validate();
 
