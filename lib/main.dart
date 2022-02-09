@@ -70,7 +70,9 @@ class _LoginPageState extends State<LoginPage> {
               const LogoContainer(),
               buildEmail(),
               buildPassword(),
-              buildSubmit()
+              buildForgotPassword(),
+              buildSubmit(),
+              buildRegister(),
             ],
           ),
         )
@@ -97,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
   );
 
   Widget buildPassword() => Container(
-    margin: EdgeInsets.only(top: 8, bottom: 8),
+    margin: EdgeInsets.only(top: 8),
     child: TextFormField(
       decoration: InputDecoration(
           labelText: 'Password',
@@ -117,6 +119,18 @@ class _LoginPageState extends State<LoginPage> {
     ),
   );
 
+  Widget buildForgotPassword() => Container(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+          child: const Text('Forgot password', style: TextStyle(decoration: TextDecoration.underline)),
+          onPressed: () {},
+        ),
+      ],
+    )
+  );
+
   Widget buildSubmit() => Container(
     margin: EdgeInsets.only(top: 8),
     width: 200,
@@ -133,6 +147,27 @@ class _LoginPageState extends State<LoginPage> {
         final isValid = formKey.currentState!.validate();
 
       },
+    ),
+  );
+
+  Widget buildRegister() => Container(
+    margin: EdgeInsets.only(top: 24),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('...or you can', textAlign: TextAlign.center, style: TextStyle(fontSize: 17)),
+        Container(
+          margin: EdgeInsets.only(top: 13),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.indigo, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextButton(
+            child: Text('Register', style: TextStyle(fontSize: 19)),
+            onPressed: () {},
+          ),
+        )
+      ],
     ),
   );
 }
