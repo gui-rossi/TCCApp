@@ -46,16 +46,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  int _counter = 0;
   final formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
-
-  void _incrementCounter() {
-    setState(() {
-      _counter = _counter + 1;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         final isValid = formKey.currentState!.validate();
 
+        if (isValid) formKey.currentState!.save();
       },
     ),
   );
