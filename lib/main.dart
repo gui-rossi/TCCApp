@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 void main() {
   runApp( const MyApp() );
@@ -59,7 +60,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.amber,
       body: Container(
         margin: EdgeInsets.only(left: 16, right: 16),
         child: Form(
@@ -83,17 +85,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget buildEmail() => Container(
     margin: EdgeInsets.only(top: 8, bottom: 8),
     child: TextFormField(
+      autovalidateMode: AutovalidateMode.always,
       decoration: InputDecoration(
           labelText: 'E-mail',
           border: OutlineInputBorder()
       ),
-      validator: (value) {
-        if (value!.length < 4) {
-          return 'Less than 4 characters';
-        } else {
-          return null;
-        }
-      },
+      validator: (value) => EmailValidator.validate(value) ? null : "Please, enter a valid e-mail",
       onSaved: (value) => setState(() => email = value!),
     )
   );
@@ -101,14 +98,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget buildPassword() => Container(
     margin: EdgeInsets.only(top: 8),
     child: TextFormField(
+      autovalidateMode: AutovalidateMode.always,
       decoration: InputDecoration(
           labelText: 'Password',
           border: OutlineInputBorder()
       ),
       validator: (value) {
         if (value != null) {
-          if (value.length < 4) {
-            return 'Less than 4 characters';
+          if (value.length < 6) {
+            return 'Less than 6 characters';
           } else {
             return null;
           }
