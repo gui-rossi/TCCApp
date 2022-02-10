@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
       style: TextButton.styleFrom(
           primary: Colors.amber
       ),
-      child: Text('Login', style: TextStyle(fontSize: 19)),
+      child: Text('Sign in', style: TextStyle(fontSize: 19)),
       onPressed: () {
         final isValid = formKey.currentState!.validate();
 
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextButton(
-            child: Text('Register', style: TextStyle(fontSize: 19)),
+            child: Text('Sign up', style: TextStyle(fontSize: 19)),
             onPressed: () {},
           ),
         )
