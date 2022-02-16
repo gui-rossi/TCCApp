@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.amberAccent,
         body: Container(
             margin: EdgeInsets.only(left: 16, right: 16),
             child: Form(
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
     ),
     child: TextButton(
       style: TextButton.styleFrom(
-          primary: Colors.amber
+          primary: Colors.amberAccent
       ),
       child: Text('Sign in', style: TextStyle(fontSize: 19)),
       onPressed: () {
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
           child: TextButton(
             child: Text('Sign up', style: TextStyle(fontSize: 19)),
             onPressed: () {
-              Navigator.of(context).pushNamed('/SignUpPage', arguments: 'second page');
+              Navigator.of(context).pushNamed('/SignUpPage', arguments: {email: this.email, password: this.password});
             },
           ),
         )

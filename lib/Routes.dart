@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'LoginPage.dart';
-import 'SignInPage.dart';
+import 'SignUpPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,17 +12,8 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/SignUpPage':
-      // Validation of correct data type
-        if (args is String) {
-          return MaterialPageRoute(
-            builder: (_) => SignUpPage(
-              data: args,
-            ),
-          );
-        }
-        // If args is not of the correct type, return an error page.
+        return MaterialPageRoute(builder: (_) => SignUpPage());
         // You can also throw an exception while in development.
-        return _errorRoute();
       default:
       // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
