@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final formKey = GlobalKey<FormState>();
 
   String email = '';
-  String password = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: Text('Forgot Password'),
       ),
       body: Container(
         margin: EdgeInsets.only(left: 16, right: 16),
@@ -27,10 +26,9 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text('Please enter a valid e-mail and password', style: TextStyle(fontSize: 19)),
+              Text('We will send you an e-mail with the registered password', style: TextStyle(fontSize: 15)),
               buildEmail(),
-              buildPassword(),
-              buildSubmit(),
+              buildRecoverPassword(),
             ],
           ),
         ),
@@ -51,29 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
       )
   );
 
-  Widget buildPassword() => Container(
-    margin: EdgeInsets.only(top: 8),
-    child: TextFormField(
-      autovalidateMode: AutovalidateMode.always,
-      decoration: InputDecoration(
-          labelText: 'Password',
-          border: OutlineInputBorder()
-      ),
-      validator: (value) {
-        if (value != null) {
-          if (value.length < 6) {
-            return 'Less than 6 characters';
-          } else {
-            return null;
-          }
-        }
-      },
-      onSaved: (value) => setState(() => password = value!),
-      obscureText: true,
-    ),
-  );
-
-  Widget buildSubmit() => Container(
+  Widget buildRecoverPassword() => Container(
     margin: EdgeInsets.only(top: 8),
     width: 200,
     decoration: BoxDecoration(
@@ -84,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
       style: TextButton.styleFrom(
           primary: Colors.amberAccent
       ),
-      child: Text('Register', style: TextStyle(fontSize: 19)),
+      child: Text('Recover Password', style: TextStyle(fontSize: 19)),
       onPressed: () {
         final isValid = formKey.currentState!.validate();
 

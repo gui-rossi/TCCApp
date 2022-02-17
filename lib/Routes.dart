@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/ForgotPassword.dart';
 
 import 'LoginPage.dart';
 import 'SignUpPage.dart';
+import 'ForgotPassword.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,7 +15,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case '/SignUpPage':
         return MaterialPageRoute(builder: (_) => SignUpPage());
-        // You can also throw an exception while in development.
+      case '/ForgotPasswordPage':
+        return MaterialPageRoute(builder: (_) => ForgotPasswordPage());
       default:
       // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

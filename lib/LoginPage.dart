@@ -100,7 +100,9 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           TextButton(
             child: const Text('Forgot password', style: TextStyle(decoration: TextDecoration.underline)),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/ForgotPasswordPage');
+            },
           ),
         ],
       )
@@ -141,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
           child: TextButton(
             child: Text('Sign up', style: TextStyle(fontSize: 19)),
             onPressed: () {
-              Navigator.of(context).pushNamed('/SignUpPage', arguments: {email: this.email, password: this.password});
+              Navigator.of(context).pushNamed('/SignUpPage');
             },
           ),
         )
