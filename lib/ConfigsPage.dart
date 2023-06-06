@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'SignalR.dart';
 
 class FirstPage extends StatefulWidget {
   @override
@@ -117,10 +118,11 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPage extends State<SecondPage> {
 
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Second Page2'),
+      child: Text('Second Page'),
     );
   }
 }

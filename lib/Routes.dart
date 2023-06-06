@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'LoginPage.dart';
 import 'ConfigsPage.dart';
+import 'SignalR.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,8 +12,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => ConfigsPage());
-      case '/SignUpPage':
-        // return MaterialPageRoute(builder: (_) => SignUpPage());
+      case '/SignalR':
+        return MaterialPageRoute(builder: (_) => SignalR());
       case '/ForgotPasswordPage':
         // return MaterialPageRoute(builder: (_) => ForgotPasswordPage());
       default:
