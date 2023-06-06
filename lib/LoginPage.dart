@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 
 class LogoContainer extends StatelessWidget {
   const LogoContainer({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class LogoContainer extends StatelessWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-              'images/T_T.jpg'),
+              'images/amongus.jpg'),
           fit: BoxFit.fill,
         ),
         shape: BoxShape.circle,
@@ -67,7 +66,6 @@ class _LoginPageState extends State<LoginPage> {
             labelText: 'E-mail',
             border: OutlineInputBorder()
         ),
-        validator: (value) => EmailValidator.validate(value) ? null : "Please, enter a valid e-mail",
         onSaved: (value) => setState(() => email = value!),
       )
   );
@@ -80,15 +78,6 @@ class _LoginPageState extends State<LoginPage> {
           labelText: 'Password',
           border: OutlineInputBorder()
       ),
-      validator: (value) {
-        if (value != null) {
-          if (value.length < 6) {
-            return 'Less than 6 characters';
-          } else {
-            return null;
-          }
-        }
-      },
       onSaved: (value) => setState(() => password = value!),
       obscureText: true,
     ),
@@ -121,9 +110,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: Text('Sign in', style: TextStyle(fontSize: 19)),
       onPressed: () {
-        final isValid = formKey.currentState!.validate();
 
-        if (isValid) formKey.currentState!.save();
       },
     ),
   );
