@@ -58,7 +58,10 @@ class ChatPageViewModel extends ViewModel {
 
       _hubConnection = HubConnectionBuilder().withUrl(_serverUrl!).build();
 
-      _hubConnection?.on("OnMessage", _handleIncommingChatMessage);
+      _hubConnection?.on("ReceiveMessage", _handleIncommingChatMessage);
+      _hubConnection?.on("ReceiveImage", _handleRequestedImage);
+      _hubConnection?.on("ReceiveInfos", _handleRequestedInfos);
+
     }
 
     if (_hubConnection?.state != HubConnectionState.Connected) {
@@ -72,14 +75,26 @@ class ChatPageViewModel extends ViewModel {
       return;
     }
     await openChatConnection();
-    _hubConnection?.invoke("Send", args: <Object>[userName, chatMessage] );
+    _hubConnection?.invoke("SendMessage", args: <Object>[userName, chatMessage] );
+  }
+
+  void _handleRequestedInfos(List<Object?>? args){
+    final String gps = args?[0] as String;
+    final String battery = args?[1] as String;
+    //display on the screen
+  }
+
+  void _handleRequestedImage(List<Object?>? args){
+    final String base64 = args?[0] as String;
+    //display base64 on the screen
   }
 
   void _handleIncommingChatMessage(List<Object?>? args){
     final String senderName = args?[0] as String;
     final String message = args?[1] as String;
-    _chatMessages?.add( ChatMessage(senderName, message));
-    notifyPropertyChanged(chatMessagesPropName);
+    print(args);
+    //_chatMessages?.add( ChatMessage(senderName, message));
+    //notifyPropertyChanged(chatMessagesPropName);
   }
 }
 
