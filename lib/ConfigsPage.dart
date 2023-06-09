@@ -1,7 +1,9 @@
 import 'dart:html';
-
+import 'package:signalr_netcore/signalr_client.dart';
 import 'package:flutter/material.dart';
-import 'SignalR.dart';
+import 'package:hello_world/SignalR.dart';
+
+typedef HubConnectionProvider = Future<HubConnection> Function();
 
 class FirstPage extends StatefulWidget {
   @override
@@ -137,13 +139,89 @@ class _MyPageState extends State<ConfigsPage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [FirstPage(), SecondPage()];
 
+  //###############################################SIGNALR
+
+  static const kChatServerUrl = "http://localhost:5001";
+
+  String? _serverUrl;
+  HubConnection? _hubConnection;
+
+  late bool _connectionIsOpen;
+  static const String connectionIsOpenPropName = "connectionIsOpen";
+  bool get connectionIsOpen => _connectionIsOpen;
+  set connectionIsOpen(bool value) {
+    connectionIsOpen = value;
+  }
+
+  _MyPageState() {
+    print("entrei");
+    _serverUrl = kChatServerUrl + "/ChatHub";
+    _connectionIsOpen = false;
+
+    openChatConnection();
+  }
+
+  Future<void> openChatConnection() async {
+    if (_hubConnection == null) {
+      HttpConnectionOptions opts = HttpConnectionOptions(skipNegotiation: true);
+      HttpTransportType transport = HttpTransportType.WebSockets;
+
+      _hubConnection = HubConnectionBuilder().withUrl(_serverUrl!).build();
+
+      _hubConnection?.on("ReceiveMessage", _handleIncommingChatMessage);
+      _hubConnection?.on("ReceiveImage", _handleRequestedImage);
+      _hubConnection?.on("ReceiveInfos", _handleRequestedInfos);
+
+    }
+
+    if (_hubConnection?.state != HubConnectionState.Connected) {
+      await _hubConnection?.start();
+      connectionIsOpen = true;
+    }
+  }
+
+  Future<void> sendChatMessage(String chatMessage) async {
+    if( chatMessage == null ||chatMessage.length == 0){
+      return;
+    }
+    await openChatConnection();
+    _hubConnection?.invoke("SendMessage", args: <Object>["Gui", chatMessage] );
+  }
+
+  void _handleRequestedInfos(List<Object?>? args){
+    final String gps = args?[0] as String;
+    final String battery = args?[1] as String;
+    //display on the screen
+  }
+
+  void _handleRequestedImage(List<Object?>? args){
+    final String base64 = args?[0] as String;
+    //display base64 on the screen
+  }
+
+  void _handleIncommingChatMessage(List<Object?>? args){
+    final String senderName = args?[0] as String;
+    final String message = args?[1] as String;
+    print(args);
+  }
+
+  _CallSignalr(){
+    sendChatMessage("BEM VINDO");
+  }
+
+  //###############################################SIGNALR
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu'),
+        title: Text(connectionIsOpen ? "Menu Connected" : "Menu Disconnected"),
       ),
       body: _pages[_currentIndex],
+      drawer: ElevatedButton(
+        onPressed: _CallSignalr,
+        child: Text('SignalR'),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
